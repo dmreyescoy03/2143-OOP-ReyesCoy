@@ -6,4 +6,12 @@
 
 |   #   | Folder Link | Assignment Description |
 | :---: | ----------- | ---------------------- |
-|   2   |             |                        |
+|   2   | main.cpp    | proper commenting      |
+
+## Instructions:
+### No extensions needed. 
+
+## Example Commands:
+### None
+
+
