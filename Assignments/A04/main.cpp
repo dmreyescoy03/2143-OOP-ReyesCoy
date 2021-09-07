@@ -1,7 +1,7 @@
 /*****************************************************************************
 *                    
 *  Author:           David Reyes-coy
-*  Email:            dmreyescoy0318@gmail.com
+*  Email:            dmreyescoy0318@my.msutexas.edu
 *  Label:            A04
 *  Title:            Class: Queue
 *  Course:           CMPS 2143
