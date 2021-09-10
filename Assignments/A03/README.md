@@ -6,7 +6,7 @@
 
 |   #   | Folder Link | Assignment Description                      |
 | :---: | ----------- | ------------------------------------------- |
-|   1   | banner.txt  | banner using VScode, name, class, assign. # |
+|   1   | [banner.txt](https://github.com/dmreyescoy03/2143-OOP-ReyesCoy/blob/main/Assignments/A03/banner.txt)  | banner using VScode, name, class, assign. # |
 
 ### Instructions:
 ### None.
