@@ -1,47 +1,120 @@
 #include "MyVector.h"
 
+
+/**
+ * Public : MyVector
+ * 
+ * Description:
+ *      Default constructor, initializes front, rear, size, sort 
+ * 
+ * 
+ * Params:
+ *      None:
+ * 
+ * Returns:
+ *      nothing:
+ */
 MyVector::MyVector()
 {
   init(); // calling init to set variables to NULL
           // size/sorted set to the int value zero
           // NULL being empty space "Zero" 
 }
-
+/**
+ * Public : MyVector
+ * 
+ * Description:
+ *      Constructor that creates the array
+ * 
+ * 
+ * Params:
+ *      int A[]:     creating array of ints
+ *      int arrS:    keeps track of array size
+ * 
+ * Returns:
+ *      nothing:
+ */
 MyVector::MyVector(int A[], int arrS) 
 {
-  init();
+  init(); // calling init function
 
   for (int i = 0; i < size; i++)
   {
-    pushRear(A[i]);
+    pushRear(A[i]); // loading the array
   }
 }
-
+/**
+ * Public : init
+ * 
+ * Description:
+ *      Simple function that initializes declared variables to 0;
+ *      also initializes pointers front and rear to NULL (empty space);
+ * 
+ * 
+ * Params:
+ *      None:
+ * 
+ * Returns:
+ *      nothing:
+ */
 void MyVector::init()
 {
-  front = rear = NULL;
-  fileName = "";
+  front = rear = NULL; // initializing front(head) and rear(tail) to
+                       // NULL ("zero") empty space.
+  fileName = ""; //declaring fileName, setting it equal to an empty string
+
+  //declaring size and sorted, setting values to 0
   size = 0;
   sorted = 0;
 }
 
+/**
+ * Private : inOrder
+ * 
+ * Description:
+ *       Declares a new node, and allows you to insert it at a location.
+ *       allows you to relink the list as well.
+ * 
+ * 
+ * Params:
+ *      int:     declaring a variable z to hold a new node value.
+ * 
+ * Returns:
+ *      nothing:
+ */
 void MyVector::inOrder(int z)
 {
-  Node* tPtr = new Node(z);
-  Node* prev = front;
-  Node* curr = front;
+  Node* tPtr = new Node(z); // declaring a new temp pointer, setting it equal
+                           // to a new node (new value)
 
-  while(curr->data >  z)
+ // these two lines allow us to insert a new node and reconnect the list
+  Node* prev = front; // previous pointer equal to front
+  Node* curr = front; // current * value equal to front
+
+  while(curr->data >  z) // loops to the location
   {
     prev = curr;
     curr = curr->next;
   }
-  tPtr->next = prev->next;
+  tPtr->next = prev->next; // re-links the linked list
   prev->next = tPtr;
 
   size++;
 }
-
+/**
+ * Public : MyVector
+ * 
+ * Description:
+ *      Default constructor, initializes front, rear, size, sort 
+ * 
+ * 
+ * Params:
+ *      int:
+ *      int:
+ * 
+ * Returns:
+ *      true;
+ */
 bool MyVector::pushAt(int x, int i) 
 {
   Node* tPtr = new Node(x);
@@ -231,4 +304,4 @@ ostream& operator<<(ostream& oStr, const MyVector& rhs)
   oStr << "\n";
   return oStr;
 }
-//ofstream MyVector::fout;
+ofstream MyVector::fout;
