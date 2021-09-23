@@ -115,7 +115,7 @@ void MyVector::inOrder(int z)
  * Returns:
  *      true;
  */
-bool MyVector::pushAt(int x, int i) 
+bool MyVector::pushAt(int i, int x) 
 {
   Node* tPtr = new Node(x);
   Node* prev = front;
