@@ -38,7 +38,7 @@ MyVector::MyVector(int A[], int arrS)
 {
   init(); // calling init function
 
-  for (int i = 0; i < size; i++)
+  for (int i = 0; i < arrS; i++)
   {
     pushRear(A[i]); // loading the array
   }
