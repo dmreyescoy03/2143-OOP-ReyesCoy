@@ -86,6 +86,7 @@ MyVector::MyVector(string fileName)
 {
   init();
   ifstream fin;
+  fin.open(fileName);
 
   int num = 0;
   while (!fin.eof())
