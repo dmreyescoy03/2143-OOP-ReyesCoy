@@ -13,10 +13,8 @@
  *      nothing:
  */
 MyVector::MyVector()
-{
-  init(); // calling init to set variables to NULL
-          // size/sorted set to the int value zero
-          // NULL being empty space "Zero" 
+{ // default constructor
+  init();
 }
 /**
  * Public : MyVector
@@ -32,38 +30,13 @@ MyVector::MyVector()
  * Returns:
  *      nothing:
  */
-MyVector::MyVector(int A[], int arrS) 
+MyVector::MyVector(int A[], int arrS) //param constructor
 {
-  init(); // calling init function
+  init();
 
   for (int i = 0; i < arrS; i++)
   {
-    pushRear(A[i]); // loading the array
-  }
-}
-/**
- * Public : MyVector // copy constructor
- * 
- * Description:
- *       Declares a new node, and allows user to insert it at a location.
- *       allows you to relink the list as well.
- * 
- * 
- * Params:
- *      const MyVector&
- * 
- * Returns:
- *      nothing:
- */
-MyVector::MyVector(const MyVector& oldObj)
-{
-  init();
-  Node* tPtr = oldObj.front;
-
-  while(tPtr)
-  {
-    pushRear(tPtr->data);
-    tPtr = tPtr->next;
+    pushRear(A[i]);
   }
 }
 /**
@@ -85,13 +58,35 @@ MyVector::MyVector(string fileName)
   init();
   ifstream fin;
   fin.open(fileName);
-
-  int num = 0;
   while (!fin.eof())
   {
-    fin >> num;
-    pushRear(num); 
+    fin >> size; 
+    pushRear(size);
+    this->size++;
   }
+}
+/**
+ * Public : MyVector
+ * 
+ * Description:
+ *       Overloads the = operator. Array[] size gets set to the
+ *       size of V1.size 
+ * 
+ * 
+ * Params:
+ *      const MyVector&
+ * 
+ * Returns:
+ *      this:
+ */
+MyVector MyVector::operator=(const MyVector& V1)
+{ //overloading the = operator
+  this->size = V1.size;
+  for (int i = 0; i < this->size; i++)
+  {
+    this->A[i] = V1.A[i];
+  }
+  return *this;
 }
 /**
  * Public : init 
@@ -109,128 +104,34 @@ MyVector::MyVector(string fileName)
  */
 void MyVector::init()
 {
-  front = rear = NULL; // initializing front(head) and rear(tail) to
+  front = rear = nullptr; // initializing front(head) and rear(tail) to
                        // NULL ("zero") empty space.
   fileName = ""; //declaring fileName, setting it equal to an empty string
 
-  //declaring size and sorted, setting values to 0
+  //declaring size and sorted, setting sizes to 0
   size = 0;
-  sorted = 0;
 }
 /**
- * Private : inOrder
+ * Public : pushFront 
  * 
  * Description:
- *       Declares a new node, then loops through list comparing it to the current
- *       value in the list, if less then current data place it at that subscript location
- *       after z (new node) is inserted the list is then re-linked. 
+ *      A method that pushes another list to the front of a current list.
  * 
  * 
  * Params:
- *      int: 
+ *      const MyVector&:
  * 
  * Returns:
- *      nothing:
+ *      Nothing:
  */
-void MyVector::inOrder(int z)
+void MyVector::pushFront(const MyVector& V2)
 {
-  Node* tPtr = new Node(z); // declaring a new temp pointer, setting it equal
-                           // to a new node (new value)
-
- // these two lines allow us to insert a new node and reconnect the list
-  Node* prev = front; // previous pointer equal to front
-  Node* curr = front; // current pionter value equal to front
-
-  while(curr->data >  z) // loops through list, compares current value
-                         // to z (new node) if curr is larger then it places z behind it
+  Node *tPtr = V2.front;
+  while (tPtr != nullptr)
   {
-    prev = curr;
-    curr = curr->next;
+    pushFront(tPtr->data);
+    tPtr = tPtr->next;    
   }
-  tPtr->next = prev->next; // re-links the linked list
-  prev->next = tPtr;
-
-  size++;
-}
-/**
- * Public : inOrderTwo
- * 
- * Description:
- *       test to see if list is sorted, checks for front if not then pushes x to front.
- *       if the new value is less than front then pushFront is called, else if 
- *       x is greater then rear then pushRear is called.
- * 
- * 
- * Params:
- *      int:
- * 
- * Returns:
- *      nothing:
- */
-void MyVector::inOrdTwo(int x)
-{
-  if(!sorted)
-  {
-    sortLst();
-  }
-
-  if(!front)
-  {
-    pushFront(x);
-  }
-  else if(x < front->data)
-  {
-    pushFront(x);
-  }
-  else if(x > rear->data)
-  {
-    pushRear(x);
-  }
-  else
-  {
-    inOrdTwo(x);
-  }
-}
-/**
- * Public : sortLst
- * 
- * Description:
- *      method that declares a temp pointer that points to front. frontTwo pointer
- *      keeps track of front as we travers the list, comparing new values to front.
- *      if present data is smaller then min, then little (pointer) holds that value
- *      as present gets the next value. continues until list is sorted.
- * 
- * 
- * Params:
- *      None:
- * Returns:
- *      nothing:
- */
-void MyVector::sortLst()
-{
-  Node* frontTwo = front;
-
-  while(frontTwo->next)
-  {
-    Node* little = frontTwo;
-    Node* present = frontTwo;
-
-    int min = INF;
-
-    while(present)
-    {
-      if(present->data < min)
-      {
-        little = present;
-        min = present->data;
-      }
-      present = present->next;
-    }
-    little->data = frontTwo->data;
-    frontTwo->data = min;
-    frontTwo = frontTwo->next;
-  }
-  sorted = true;
 }
 /**
  * Public : pushAt
@@ -249,62 +150,30 @@ void MyVector::sortLst()
  * Returns:
  *      returns true;
  */
-bool MyVector::pushAt(int i, int x) 
+void MyVector::pushAt(int loc, int x)
 {
-  Node* tPtr = new Node(x);
-  Node* prev = front;
-  Node* curr = front;
-
-  if(i >= size)
-  {
-    return false;
-  }
-  while(i > 0)
-  {
-    prev = curr;
-    curr = curr->next;
-    i--;
-  }
-
-  tPtr->next = prev->next;
-  prev->next = tPtr;
-
-  size++;
-
-  return true;
-}
-/**
- * Public : pushFront //pushes new vector to front of list
- * 
- * Description:
- *      A method that pushes another list to the front of a current list.
- * 
- * 
- * Params:
- *      const MyVector&:
- * 
- * Returns:
- *      Nothing:
- */
-void MyVector::pushFront(const MyVector & oldObj)
-{
-  Node* otherPtr = oldObj.front;
-
-  int* tData = new int[oldObj.size];
-
-  int i = 0;
-
-  while(otherPtr)
-  {
-    tData[i] = otherPtr->data;
-    otherPtr = otherPtr->next;
-    ++i;
-  }
-
-  for(int i = oldObj.size - 1; i >= 0; i--)
-  {
-    pushFront(tData[i]);
-  }
+  if(loc == 0)
+	{
+	 pushFront(x);
+	}
+	else
+	{
+		if(loc < size)
+		{
+			Node* tPtr = front;
+			for(int i = 0; i < loc; i++)
+			{
+			 tPtr->prev = tPtr;
+			 tPtr = tPtr->next;
+			}
+			tPtr->prev->next = new Node(x);
+			tPtr->prev->next->next = tPtr->next;
+    }
+		else
+		{
+			pushRear(x);
+		}
+	}
 }
 /**
  * Public : pushFront //pushes a new value to list
@@ -321,23 +190,27 @@ void MyVector::pushFront(const MyVector & oldObj)
  * Returns:
  *      Nothing;
  */
-void MyVector::pushFront(int z)
+void MyVector::pushFront(int num)
 {
-  Node* tPtr = new Node(z);
-
-  if(!front)
+  if (front == nullptr)                           //head is empty
   {
-    front = rear = tPtr;
+    front = new Node(num);                          // add new node to list
+    rear = front;                                 // set head and tail equal
+    size++;                                        //update size
   }
   else
   {
-    tPtr->next = front;
-    front = tPtr;
+    Node *tPtr = front;                             // nodeptr to head
+    front = new Node(num);                          // set new value to head
+
+    front->next = tPtr;
+    tPtr->prev = rear;
+
+    size++;
   }
-  size++;
 }
 /**
- * Public : pushRear //another method similar to pushFront
+ * Public : pushRear 
  * 
  * Description:
  *      pushes data from another list to the current list that was first created.
@@ -351,36 +224,34 @@ void MyVector::pushFront(int z)
  * Returns:
  *      Nothing;
  */
-void MyVector::pushRear(const MyVector& oldObj)
+void MyVector::pushRear(const MyVector& V2)
 {
-  Node* opPtr = oldObj.front;
-
-  while(opPtr)
+  Node *tPtr = V2.front;
+  while (tPtr)
   {
-    pushRear(opPtr->data);
-    opPtr = opPtr->next;
+    pushRear(tPtr->data); // print data from node
+    tPtr = tPtr->next;   // move to next node
   }
 }
 /**
- * Public : pushRear // similar to pushFront(int);
+ * Public : pushRear 
  * 
  * Description:
- *     A method that allows a new node to be pushed to the end of the list. declares
- *     a temp pointer that points to a new Node. if list is empty front and rear are
- *     set to point to it. else the temp pointer is added to the rear of the list.
+ *      Creates a temp pointer that points to a new node. If list is empty
+ *      set head and rear to new node. If not empty rear is set to the new 
+ *      node being created.
  * 
  * 
  * Params:
- *      int:
+ *      int x;
  * 
  * Returns:
  *      Nothing;
  */
-void MyVector::pushRear(int z)
+void MyVector::pushRear(int x)
 {
-  Node* tPtr = new Node(z);
-
-  if(!front)
+  Node *tPtr = new Node(x);
+  if (!front)
   {
     front = rear = tPtr;
   }
@@ -391,36 +262,208 @@ void MyVector::pushRear(int z)
   }
 }
 /**
- * Public : operator<< // overloads the << (print to console operator)
+ * Public : popAt 
  * 
  * Description:
- *      A method that is similar to Print. except it overloads the << operator
- *      allowing multiple things to be printed.
+ *      declares a temp pointer to keep track of front. checks for nullptr and loc
+ *      if loc doesn't exist then error. Searches for value and returns the
+ *      subscript value.
+ * 
+ * 
+ * Params:
+ *      int loc;
+ * 
+ * Returns:
+ *      returns size;
+ */
+int MyVector::popAt(int loc)
+{
+  Node *tPtr = front; 
+  int remove;
+	int size =  0;
+  int pos = 0; 
+
+  if (front != nullptr)
+  {
+    while (tPtr->next != nullptr && pos != loc)
+    {
+      tPtr->prev = tPtr;
+      tPtr = tPtr->next;
+      pos++;
+    }
+    if (loc > pos+1)
+    cout << "location does not exist\n";
+    else
+    {
+      remove = tPtr->data;
+      tPtr = tPtr->prev;
+      delete tPtr;
+      return remove;
+    }
+  }
+  return size;
+}
+/**
+ * Public : popFront 
+ * 
+ * Description:
+ *      checks head for nullptr if null then error. if not empty
+ *      int is set to the head of list creates temp pointer to
+ *      point to the next value in list. then deletes int(old head)
+ * 
+ * 
+ * Params:
+ *      None;
+ * 
+ * Returns:
+ *      return 0;
+ */
+int MyVector::popFront()
+{
+  if(front == nullptr)
+  {
+    cout <<"Can't pop from an empty list\n";
+  }
+  else
+  {
+    int pf = front->data;
+    Node *tPtr = front;
+    front = front->next;
+    delete tPtr;
+    size--;
+    return pf;
+  }
+  return 0;
+}
+/**
+ * Public : popRear
+ * 
+ * Description:
+ *      checks rear for nullptr if null then error. if not empty
+ *      int is set to the rear of list creates temp pointer to
+ *      point to the next value in list. then deletes int(old head)
+ * 
+ * 
+ * Params:
+ *      None;
+ * 
+ * Returns:
+ *      return 0;
+ */
+int MyVector::popRear()
+{
+  if(rear == nullptr)
+  {
+    cout << "empty";
+  }
+  else
+  {
+    int pr = rear->data;
+    Node *tPtr = front;
+    while(tPtr->next != rear)
+    {
+      tPtr = tPtr->next;
+    }
+    rear = tPtr;
+    rear->next = nullptr;
+    size--;
+    return pr;
+  }
+  return 0;
+}
+/**
+ * Public : find 
+ * 
+ * Description:
+ *      if head is not found return nothing. else create a int value
+ *      and temp pointer to point to front. Traverse the list finding 
+ *      desired value. if value is not found return -1
+ * 
+ * 
+ * Params:
+ *      None;
+ * 
+ * Returns:
+ *      return 0;
+ */
+int MyVector::find(int val)
+{
+  if(!front)
+  {
+    return 0;
+  }
+  if (front->data == val)
+  {
+    return 0;
+  }
+  else
+  {
+    int num = 0;
+    Node *tPtr = front;
+    while (tPtr != nullptr && tPtr->data != val)
+    {
+      tPtr = tPtr->next;
+      num++;
+    }
+    if(!tPtr)
+    {
+      return -1;
+    }
+    return num;
+  }
+  return 0;
+}
+/**
+ * Public : Print
+ * 
+ * Description:
+ *      A method that prints []-> to the screen. Print each value of the list
+ * 
+ * 
+ * Params:
+ *      None;
+ * 
+ * Returns:
+ *      nothing;
+ */
+void MyVector::print()
+{
+  cout << "[";
+  Node *tPtr = front;
+  while (tPtr)
+  {
+    cout << tPtr->data << "->";
+    tPtr = tPtr->next;
+  }
+  cout << "] ";
+  cout << '\n';
+}
+/**
+ * Public : oPrint
+ * 
+ * Description:
+ *      A method that is similar to Print. Instead of printing to
+ *      the screen it goes to an outfile;
  * 
  * 
  * Params:
  *      ostream&:
- *      const MyVector&:
  * 
  * Returns:
- *      returns oStr; //user name for ostream
+ *      nothing;
  */
-ostream& operator<<(ostream& oStr, const MyVector& rhs)
+void MyVector::oPrint(ofstream& banana)
 {
-  MyVector::Node* tPtr = rhs.front;
-
-  while(tPtr)
+  banana << "[ ";
+  Node *tPtr = front;
+  while (tPtr)
   {
-    oStr << tPtr->data;
-    if(tPtr->next)
-    {
-      oStr << "->";
-
-    }
+    banana << tPtr->data << "->";
     tPtr = tPtr->next;
   }
-  oStr << "\n";
-  return oStr;
+  banana << "] ";
+  banana << '\n';
+  
 }
 /**
  * Public : ~MyVector // destructor one of 3 constructors in a class
@@ -436,17 +479,5 @@ ostream& operator<<(ostream& oStr, const MyVector& rhs)
  *      Nothing;
  */
 MyVector::~MyVector()
-{
-  Node* curr = front;
-  Node* prev = front;
-
-  while(curr)
-  {
-    prev = curr;
-    curr = curr->next;
-    delete prev;
-  }
+{ //deconstructor
 }
-// creates an outfile with a filename chosen by the user
-//takes the output envoirment path and passes that to the object of output stream.
-ofstream MyVector::fout;
