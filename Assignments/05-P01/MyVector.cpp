@@ -1,6 +1,4 @@
 #include "MyVector.h"
-
-
 /**
  * Public : MyVector
  * 
