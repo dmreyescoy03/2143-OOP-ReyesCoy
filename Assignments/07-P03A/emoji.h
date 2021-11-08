@@ -1,5 +1,27 @@
+#pragma once
+#include <iostream>
+//#include "emoji.h"    //https://github.com/99x/emojicpp
+#include <functional>  // needed for `bind`
 #include <map>
+#include <random>
 #include <string>
+#include <fstream> 
+#include <vector>
+
+using namespace std;
+
+#define ROCK u8"\U0000270A"
+#define PAPER u8"\U0000270B"
+#define SCISSORS u8"\U0001F44C"
+#define LIZARD u8"\U0001F918"
+#define SPOCK u8"\U0001F596"
+
+#define ROCK2 u8"\U0001F5FB"
+#define PAPER2 u8"\U0001F4C3"
+#define SCISSORS2 u8"\U0001F52A"
+#define LIZARD2 u8"\U0001F438"
+#define SPOCK2 u8"\U0001F596"
+
 
 namespace emojicpp {
 

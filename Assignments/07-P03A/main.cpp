@@ -23,30 +23,7 @@
 *****************************************************************************/
 
 
-#include <iostream>
-//#include "emoji.h"    //https://github.com/99x/emojicpp
-#include <functional>  // needed for `bind`
-#include <map>
-#include <random>
-#include <string>
-#include <fstream> 
-#include <vector>
-
-using namespace std;
-
-#define ROCK u8"\U0000270A"
-#define PAPER u8"\U0000270B"
-#define SCISSORS u8"\U0001F44C"
-#define LIZARD u8"\U0001F918"
-#define SPOCK u8"\U0001F596"
-
-#define ROCK2 u8"\U0001F5FB"
-#define PAPER2 u8"\U0001F4C3"
-#define SCISSORS2 u8"\U0001F52A"
-#define LIZARD2 u8"\U0001F438"
-#define SPOCK2 u8"\U0001F596"
-
-
+#include "emoji.h"
 
 /**
  * RandRoll
@@ -280,6 +257,7 @@ class Character
 
 int main() 
 {
+  ofstream outfile("battles.dat");
   srand(time(0));
 
   // Weapon w1("rock");
@@ -289,20 +267,23 @@ int main()
   //Character c1;
   //Character c2;
 
-  cout<<Emojis[w1.name]<<" vs "<<Emojis[w2.name]<<":"<<endl;
-
+  cout << Emojis[w1.name]<<" vs "<<Emojis[w2.name]<<":"<<endl;
+  outfile << Emojis[w1.name]<<" vs "<<Emojis[w2.name]<<":"<<endl;
   
   if(w1 > w2)
   {
     cout <<  Emojis[w1.name] << " beats " << Emojis[w2.name] << "!\n";
+    outfile << Emojis[w1.name] << " beats " << Emojis[w2.name] << "!\n";
   }
   else if(w1 < w2)
   {
-    cout<<  Emojis[w2.name] <<" loses to "<< Emojis[w1.name] <<"!\n";
+    cout <<  Emojis[w1.name] <<" loses to "<< Emojis[w2.name] <<"!\n";
+    outfile << Emojis[w1.name] <<" loses to "<< Emojis[w2.name] <<"!\n";
   }
   else if(w1 == w2)
   {
     cout  << "Tie!\n";
+    outfile << "Tie!\n";
   }
   return 0;
     
