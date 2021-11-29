@@ -1,11 +1,10 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include <string>
 #include "helpers.hpp"
 
 using namespace std;
-
-#pragma once
 
 class Die {
   int sides;
