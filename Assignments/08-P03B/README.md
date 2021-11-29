@@ -10,6 +10,7 @@
 | :---: | -------------------------------------------------------------------------------------------------------- | ------------------------ |
 |   6   | [main.cpp](https://github.com/dmreyescoy03/2143-OOP-ReyesCoy/blob/main/Assignments/08-P03B/main.cpp)     | Inheritance/Polymorphism |
 |       | [output.txt](https://github.com/dmreyescoy03/2143-OOP-ReyesCoy/blob/main/Assignments/08-P03B/output.txt) | Test output              |
+|       | fighter.hpp                                                                                              | Fighting/Matchup         |
 
 ### Instructions:
 ### The user will be prompted on which file they would like to save the 
