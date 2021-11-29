@@ -1,5 +1,0 @@
-Number of Attackers: 0
-Number of Defenders: 0
-The Death Pool: 40
- --Number of dead attacker: 20
- --Number of dead defenders: 20
