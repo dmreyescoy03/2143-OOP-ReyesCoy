@@ -8,7 +8,7 @@
 
 |   #   | Folder Link | Assignment Description   |
 | :---: | ----------- | ------------------------ |
-|   6   | main.cpp    | Inheritance/Polymorphism |
+|   6   | [main.cpp](https://github.com/dmreyescoy03/2143-OOP-ReyesCoy/blob/main/Assignments/08-P03B/main.cpp)    | Inheritance/Polymorphism |
 |       | output.txt  | Test output              |
 
 ### Instructions:
