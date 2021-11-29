@@ -6,10 +6,10 @@
 ### 10 random attackers and 10 random defenders based on the characters we created.
 ### Using run time polymorphism and composition for the Is-A relationship.
 
-|   #   | Folder Link | Assignment Description   |
-| :---: | ----------- | ------------------------ |
-|   6   | [main.cpp](https://github.com/dmreyescoy03/2143-OOP-ReyesCoy/blob/main/Assignments/08-P03B/main.cpp)    | Inheritance/Polymorphism |
-|       | output.txt  | Test output              |
+|   #   | Folder Link                                                                                              | Assignment Description   |
+| :---: | -------------------------------------------------------------------------------------------------------- | ------------------------ |
+|   6   | [main.cpp](https://github.com/dmreyescoy03/2143-OOP-ReyesCoy/blob/main/Assignments/08-P03B/main.cpp)     | Inheritance/Polymorphism |
+|       | [output.txt](https://github.com/dmreyescoy03/2143-OOP-ReyesCoy/blob/main/Assignments/08-P03B/output.txt) | Test output              |
 
 ### Instructions:
 ### The user will be prompted on which file they would like to save the 
