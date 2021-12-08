@@ -15,7 +15,7 @@ From here, we will have three classes for Transcript to use composition on to ge
 
 ### Grades class
 
-    Will allow for grades to be filled by the semester, grade, and class of a student
+ >   Will allow for grades to be filled by the semester, grade, and class of a student
 
     Uses public get methods to grab grades
 
